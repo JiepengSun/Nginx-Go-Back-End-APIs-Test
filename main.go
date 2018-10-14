@@ -155,13 +155,21 @@ func main() {
 	// create route handlers and endpoints
 	// use /param={id} to parse parameter to endpoint
 	// at the end point, use params["id"] to get parameter in the request
-	r.HandleFunc("/initdata", initData).Methods("GET")
-	r.HandleFunc("/getbooks", getBooks).Methods("GET")
-	r.HandleFunc("/getbook/{id}", getBook).Methods("GET")
-	r.HandleFunc("/createbook", createBook).Methods("POST")
-	r.HandleFunc("/updatebook/{id}", updateBook).Methods("PUT")
-	r.HandleFunc("/deletebook/{id}", deleteBook).Methods("DELETE")
+	
+	//r.HandleFunc("/initdata", initData).Methods("GET")
+	//r.HandleFunc("/getbooks", getBooks).Methods("GET")
+	//r.HandleFunc("/getbook/{id}", getBook).Methods("GET")
+	//r.HandleFunc("/createbook", createBook).Methods("POST")
+	//r.HandleFunc("/updatebook/{id}", updateBook).Methods("PUT")
+	//r.HandleFunc("/deletebook/{id}", deleteBook).Methods("DELETE")
 
+	r.Handle("/initdata", http.HandlerFunc(initData)).Methods("GET")
+	r.Handle("/getbooks", http.HandlerFunc(getBooks)).Methods("GET")
+	r.Handle("/getbook/{id}", http.HandlerFunc(getBook)).Methods("GET")
+	r.Handle("/createbook", http.HandlerFunc(createBook)).Methods("POST")
+	r.Handle("/updatebook/{id}", http.HandlerFunc(updateBook)).Methods("PUT")
+	r.Handle("/deletebook/{id}", http.HandlerFunc(deleteBook)).Methods("DELETE")
+	
 	// start server, log if error occurs
 	log.Fatal(http.ListenAndServe(":3000", r))
 }
